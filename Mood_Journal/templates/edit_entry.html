@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Edit Entry — Mood Journal{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Edit Entry</h1>
+  <form method="post">
+    <label>Mood rating: <span id="moodValue">{{ entry.mood_rating }}</span></label>
+    <input type="range" id="mood" name="mood_rating" min="1" max="10" value="{{ entry.mood_rating }}" oninput="document.getElementById('moodValue').innerText=this.value">
+
+    <label>Emotions (choose)</label>
+    <div class="chips">
+      {% for e in ['Happy','Sad','Anxious','Calm','Excited','Frustrated'] %}
+      <label class="chip"><input type="checkbox" name="emotions" value="{{ e }}" {% if e in entry.emotions %}checked{% endif %}>{{ e }}</label>
+      {% endfor %}
+      <label class="chip"><input type="text" name="emotions" placeholder="Custom emotion"></label>
+    </div>
+
+    <label>Energy level</label>
+    <input type="range" name="energy_level" min="1" max="10" value="{{ entry.energy_level }}">
+
+    <label>Stress level</label>
+    <input type="range" name="stress_level" min="1" max="10" value="{{ entry.stress_level }}">
+
+    <label>Notes</label>
+    <textarea name="notes" rows="4">{{ entry.notes }}</textarea>
+
+    <label>Coping strategies</label>
+    <input name="coping" value="{{ entry.coping | join(', ') }}" />
+
+    <button class="btn primary" type="submit">Save changes</button>
+  </form>
+</div>
+{% endblock %}
