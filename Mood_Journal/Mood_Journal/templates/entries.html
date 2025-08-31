@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Entries — Mood Journal{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Your Entries</h1>
+  <p><a href="{{ url_for('index') }}">New Entry</a> • <a href="{{ url_for('dashboard') }}">Dashboard</a></p>
+  {% if entries %}
+    <ul class="entry-list">
+      {% for e in entries %}
+      <li>
+        <div><strong>{{ e.mood_rating }}</strong> — {{ e.created_at }}</div>
+        <div>Emotions: {{ e.emotions | join(', ') }}</div>
+        <div>Energy: {{ e.energy_level }} • Stress: {{ e.stress_level }}</div>
+        <div>Notes: {{ e.notes }}</div>
+        <div>Coping: {{ e.coping | join(', ') }}</div>
+        <div class="entry-actions">
+          <a href="{{ url_for('edit_entry', eid=e.id) }}">Edit</a> |
+          <form action="{{ url_for('delete_entry', eid=e.id) }}" method="post" style="display:inline">
+            <button class="btn small" type="submit">Delete</button>
+          </form>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No entries yet — add one!</p>
+  {% endif %}
+</div>
+{% endblock %}

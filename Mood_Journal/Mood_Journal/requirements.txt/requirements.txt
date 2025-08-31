@@ -1,0 +1,12 @@
+Flask
+Flask-Cors
+Flask-Bcrypt
+gunicorn
+python-dotenv
+cryptography
+apscheduler
+requests
+pandas
+matplotlib
+transformers
+torch
